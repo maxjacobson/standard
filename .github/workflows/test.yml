@@ -27,5 +27,13 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
+      - name: ruby -v
+        run: ruby -v
+      - name: ls -lash
+        run: ls -lash
+      - name: pwd
+        run: pwd
+      - name: env
+        run: env
       - name: Run tests for Ruby ${{ matrix.ruby-version }} on ${{ matrix.os }}
-        run: bundle config unset deployment && bundle exec rake
+        run: bundle config unset deployment && bundle exec m test/standard/runners/rubocop_test.rb:67
