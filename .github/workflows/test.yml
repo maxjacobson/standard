@@ -27,5 +27,7 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
+      - name: ruby -v
+        run: ruby -v
       - name: Run tests for Ruby ${{ matrix.ruby-version }} on ${{ matrix.os }}
         run: bundle config unset deployment && bundle exec rake
