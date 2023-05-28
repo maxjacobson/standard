@@ -3,6 +3,51 @@ require_relative "../../test_helper"
 require "standard/runners/rubocop"
 require "fixture/runner/bad_cop"
 
+module RuboCop
+  module Cop
+    module Style
+      class SingleLineMethods
+        private
+
+        def correct_to_endless?(body_node)
+          if target_ruby_version < 3.0
+            raise "not auto-correcting to endless because the target_ruby_version is #{target_ruby_version} which is less than 3.0"
+            return false
+          end
+
+          if disallow_endless_method_style?
+            raise "not auto-correcting to endless because endless method style is disallowed"
+            return false
+          end
+
+          unless body_node
+            raise "not auto-correcting to endless because no body node"
+
+            return false
+          end
+
+          if body_node.parent.assignment_method?
+            raise "not auto-correcting to endless because assignment method"
+            return false
+          end
+
+          if NOT_SUPPORTED_ENDLESS_METHOD_BODY_TYPES.include?(body_node.type)
+            raise "not auto-correcting to endless because not supported body type"
+            return false
+          end
+
+          if !(body_node.begin_type? || body_node.kwbegin_type?)
+            true
+          else
+            raise "not auto-correcting to endless because not begin type"
+            false
+          end
+        end
+      end
+    end
+  end
+end
+
 class Standard::Runners::RubocopTest < UnitTest
   DEFAULT_OPTIONS = {
     formatters: [["quiet", nil]]
@@ -56,6 +101,10 @@ class Standard::Runners::RubocopTest < UnitTest
   end
 
   def test_print_corrected_output_on_stdin
+
+
+
+
     @subject.call(create_config(
       autocorrect: true,
       safe_autocorrect: true,
