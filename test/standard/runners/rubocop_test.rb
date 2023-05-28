@@ -56,16 +56,13 @@ class Standard::Runners::RubocopTest < UnitTest
   end
 
   def test_print_corrected_output_on_stdin
-    fake_out, fake_err = do_with_fake_io do
-      @subject.call(create_config(
-        autocorrect: true,
-        safe_autocorrect: true,
-        stdin: "def Foo;'hi'end\n"
-      ))
-    end
+    @subject.call(create_config(
+      autocorrect: true,
+      safe_autocorrect: true,
+      stdin: "def Foo;'hi'end\n"
+    ))
 
-    assert_equal EXPECTED_REPORT + EXPECTED_FIXED, fake_out.string
-    assert_equal "", fake_err.string
+    raise "hell"
   end
 
   def test_print_corrected_output_on_stdin_with_corrections_on_stderr
