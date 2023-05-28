@@ -53,7 +53,6 @@ end
 class Standard::Runners::RubocopTest < UnitTest
   DEFAULT_OPTIONS = {
     formatters: [["quiet", nil]],
-    TargetRubyVersion: RUBY_VERSION,
   }.freeze
 
   EXPECTED_REPORT = <<~REPORT
