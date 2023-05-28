@@ -36,4 +36,4 @@ jobs:
       - name: env
         run: env
       - name: Run tests for Ruby ${{ matrix.ruby-version }} on ${{ matrix.os }}
-        run: bundle config unset deployment && bundle exec m test/standard/runners/rubocop_test.rb:103
+        run: bundle config unset deployment && bundle exec m test/standard/runners/rubocop_test.rb:106

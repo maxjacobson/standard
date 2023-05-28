@@ -13,6 +13,8 @@ module RuboCop
           if target_ruby_version < 3.0
             puts "not auto-correcting to endless because the target_ruby_version is #{target_ruby_version} which is less than 3.0"
             return false
+          else
+            puts "target_ruby_version is #{target_ruby_version} which is A-OK for endless methods"
           end
 
           if disallow_endless_method_style?
@@ -50,7 +52,8 @@ end
 
 class Standard::Runners::RubocopTest < UnitTest
   DEFAULT_OPTIONS = {
-    formatters: [["quiet", nil]]
+    formatters: [["quiet", nil]],
+    TargetRubyVersion: RUBY_VERSION,
   }.freeze
 
   EXPECTED_REPORT = <<~REPORT
