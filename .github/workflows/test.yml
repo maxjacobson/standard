@@ -33,5 +33,7 @@ jobs:
         run: ls -lash
       - name: pwd
         run: pwd
+      - name: env
+        run: env
       - name: Run tests for Ruby ${{ matrix.ruby-version }} on ${{ matrix.os }}
         run: bundle config unset deployment && bundle exec rake
